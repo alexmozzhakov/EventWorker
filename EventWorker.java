@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
 
-public class Event {
+public class EventWorker {
 	private static Calendar cal = Calendar.getInstance(); // GregorianCalendar
 	private static int timeZone = cal.getTimeZone().getRawOffset() / 36000;
 
