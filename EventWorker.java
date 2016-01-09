@@ -54,7 +54,7 @@ public class EventWorker {
 		out.println("BEGIN:VCALENDAR");
 		out.println("BEGIN:VEVENT");
 		out.println("VERSION:2.0");
-		out.println("PRODID:-//hacksw/handcal//NONSGML v1.0//EN");
+		out.println("PRODID:-//github.com/alexmozzhakov/EventWorker//EventWorker v1.0//EN");
 		out.println("DTSTAMP:" + date + (now) + "00Z");
 		out.println("DTSTART:" + date + time + "00Z");
 		if (event.getName().contains("eventtype1"))
