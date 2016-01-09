@@ -35,36 +35,46 @@ public class EventWorker {
 
 	public static void getICS(String eventName, int time, String dir) throws IOException {
 		File directory = new File(dir);
-		int numFiles = directory.list().length;
-		int now = Calendar.HOUR * 10 + Calendar.MINUTE;
-		String date = cal.get(Calendar.YEAR) + "" + cal.get(Calendar.MONTH) + "" + cal.get(Calendar.DAY_OF_MONTH) + "T";
-		if (!eventName.contains("טורנירים")) {
-			PrintWriter out = new PrintWriter(dir + numFiles + ".ics");
-			out.println("BEGIN:VCALENDAR");
-			out.println("BEGIN:VEVENT");
-			out.println("VERSION:2.0");
-			out.println("PRODID:-//hacksw/handcal//NONSGML v1.0//EN");
-			out.println("DTSTAMP:" + date + "0" + (now) + "00Z");
-			out.println("DTSTART:" + date + time + "00Z");
-			if (eventName.contains("ארוחת"))
-				out.println("DTEND:" + date + (time + 25) + "00Z");
-			else if (eventName.contains("מועדון"))
-				if (time != 1930)
-					out.println("DTEND:" + date + (time + 30) + "00Z");
-				else
-					out.println("DTEND:" + date + (time + 5) + "00Z");
-			else if (eventName.contains("פעולה"))
-				out.println("DTEND:" + date + (time + 45) + "00Z");
+		int numFiles = directory.list().length + 1;
+		int mounth = cal.get(Calendar.MONTH) + 1;
+		int now = Calendar.HOUR_OF_DAY * 100 + Calendar.MINUTE;
+		int day_of_mounth = cal.get(Calendar.DATE);
+		StringBuilder date = new StringBuilder();
+		date.append(cal.get(Calendar.YEAR));
+		if (mounth < 10) {
+			date.append("0" + mounth);
+		} else
+			date.append(mounth);
+		if (day_of_mounth < 10) {
+			date.append("0" + day_of_mounth);
+		} else
+			date.append(day_of_mounth);
+		date.append("T");
+		PrintWriter out = new PrintWriter(dir + numFiles + ".ics");
+		out.println("BEGIN:VCALENDAR");
+		out.println("BEGIN:VEVENT");
+		out.println("VERSION:2.0");
+		out.println("PRODID:-//hacksw/handcal//NONSGML v1.0//EN");
+		out.println("DTSTAMP:" + date + (now) + "00Z");
+		out.println("DTSTART:" + date + time + "00Z");
+		if (event.getName().contains("eventtype1"))
+			out.println("DTEND:" + date + (time + 25) + "00Z");
+		else if (event.getName().contains("eventtype2"))
+			if (time != 1930) //difference in time of event example
+				out.println("DTEND:" + date + (time + 30) + "00Z"); // will take 30 min usual
 			else
-				out.println("DTEND:" + date + (time + 30) + "00Z");
+				out.println("DTEND:" + date + (time + 5) + "00Z"); // or 5 in if happend on 19:30
+		else if (event.getName().contains("eventtype3"))
+			out.println("DTEND:" + date + (time + 45) + "00Z");
+		else
+			out.println("DTEND:" + date + (time + 30) + "00Z"); // default event time
 
-			out.println("SUMMARY:" + eventName);
-			out.println("END:VEVENT");
-			out.println("END:VCALENDAR");
-			out.close();
+		out.println("SUMMARY:" + eventName);
+		out.println("END:VEVENT");
+		out.println("END:VCALENDAR");
+		out.close();
 		//  Uncomment if you want to open file instantly
 		//	File myFile = new File(dir + numFiles + ".ics"); 
 		//	Desktop.getDesktop().open(myFile);
-		}
 	}
 }
