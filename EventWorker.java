@@ -73,8 +73,8 @@ public class EventWorker {
 		out.println("END:VEVENT");
 		out.println("END:VCALENDAR");
 		out.close();
+		File myFile = new File(dir + numFiles + ".ics"); 
 		//  Uncomment if you want to open file instantly
-		//	File myFile = new File(dir + numFiles + ".ics"); 
 		//	Desktop.getDesktop().open(myFile);
 	}
 }
