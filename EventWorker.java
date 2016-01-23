@@ -3,11 +3,21 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
+import java.util.Scanner;
 
 public class EventWorker {
 	private static Calendar cal = Calendar.getInstance(); // GregorianCalendar
 	private static int timeZone = cal.getTimeZone().getRawOffset() / 36000;
+	public static Scanner sc = new Scanner(System.in);
 
+	public static void main(String[] args){
+		String input = sc.next();
+		System.out.print("Time: " + getTime(input) + ", Event name: " + getName(input));
+		System.out.println("Print directory name");
+		String dir = sc.next();
+		getICS(getName(input), getTime(input) ,dir);
+		System.out.print("");
+	}
 	public static String getName(String input) {
 		String eventName = "";
 		char[] str2ch = input.toCharArray();
