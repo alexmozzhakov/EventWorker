@@ -10,14 +10,15 @@ public class EventWorker {
 	private static int timeZone = cal.getTimeZone().getRawOffset() / 36000;
 	public static Scanner sc = new Scanner(System.in);
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		String input = sc.next();
 		System.out.print("Time: " + getTime(input) + ", Event name: " + getName(input));
 		System.out.println("Print directory name");
 		String dir = sc.next();
-		getICS(getName(input), getTime(input) ,dir);
-		System.out.print("");
+		getICS(getName(input), getTime(input), dir);
+		System.out.print("File created in " + dir);
 	}
+
 	public static String getName(String input) {
 		String eventName = "";
 		char[] str2ch = input.toCharArray();
@@ -70,14 +71,19 @@ public class EventWorker {
 		if (event.getName().contains("eventtype1"))
 			out.println("DTEND:" + date + (time + 25) + "00Z");
 		else if (event.getName().contains("eventtype2"))
-			if (time != 1930) 												// difference in time of event example
-				out.println("DTEND:" + date + (time + 30) + "00Z"); 		// will take 30 min usual
+			if (time != 1930) // difference in time of event example
+				out.println("DTEND:" + date + (time + 30) + "00Z"); // will take
+																	// 30 min
+																	// usual
 			else
-				out.println("DTEND:" + date + (time + 5) + "00Z");			// or 5 in if happend on 19:30
+				out.println("DTEND:" + date + (time + 5) + "00Z"); // or 5 in if
+																	// happend
+																	// on 19:30
 		else if (event.getName().contains("eventtype3"))
 			out.println("DTEND:" + date + (time + 45) + "00Z");
 		else
-			out.println("DTEND:" + date + (time + 30) + "00Z");				 // default event time
+			out.println("DTEND:" + date + (time + 30) + "00Z"); // default event
+																// time
 
 		out.println("SUMMARY:" + eventName);
 		out.println("END:VEVENT");
